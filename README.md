@@ -3,7 +3,6 @@
 Pinnacle is a lightweight, developer-friendly CRM built with **FastAPI**, **SQLAlchemy**, **React**, and **JWT authentication**.  
 It focuses on the core primitives of a CRM: **Companies, Contacts, Deals, and Activities**, without enterprise bloat.
 
-This is not Salesforce. That’s the point.
 
 ---
 

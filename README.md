@@ -1,4 +1,5 @@
 # Pinnacle CRM
+<img width="1223" height="494" alt="Screenshot 2025-12-16 at 3 34 30 PM" src="https://github.com/user-attachments/assets/1884245e-5a5c-45b5-bf53-1321bea0e6e4" />
 
 Pinnacle is a lightweight, developer-friendly CRM built with **FastAPI**, **SQLAlchemy**, **React**, and **JWT authentication**.  
 It focuses on the core primitives of a CRM: **Companies, Contacts, Deals, and Activities**, without enterprise bloat.
@@ -110,3 +111,4 @@ Authentication uses **JWT (Bearer tokens)**.
 2. Backend issues a JWT
 3. Frontend stores the token in `localStorage`
 4. All API requests attach:
+

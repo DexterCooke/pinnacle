@@ -1,17 +1,26 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "./client";
 
 export function useList<T>(key: string, path: string) {
-  return useQuery<T[]>({
+  return useQuery({
     queryKey: [key],
-    queryFn: async () => (await api.get(path)).data,
+    queryFn: async () => {
+      const res = await api.get<T[]>(path);
+      return res.data;
+    },
   });
 }
 
-export function useCreate<TIn, TOut>(key: string, path: string) {
+export function useCreate<TIn extends object, TOut>(key: string, path: string) {
   const qc = useQueryClient();
+
   return useMutation({
-    mutationFn: async (payload: TIn) => (await api.post<TOut>(path, payload)).data,
-    onSuccess: () => qc.invalidateQueries({ queryKey: [key] }),
+    mutationFn: async (payload: TIn) => {
+      const res = await api.post<TOut>(path, payload);
+      return res.data;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: [key] });
+    },
   });
 }

@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import select
 from ..deps import get_db, current_user
 from ..models import Contact
-from ..schemas import ContactIn, ContactOut
+from ..schemas import ContactCreate, ContactOut
 
 router = APIRouter(prefix="/contacts", tags=["contacts"])
 
@@ -12,7 +12,7 @@ def list_contacts(db: Session = Depends(get_db), _=Depends(current_user)):
     return db.scalars(select(Contact).order_by(Contact.created_at.desc())).all()
 
 @router.post("", response_model=ContactOut)
-def create_contact(payload: ContactIn, db: Session = Depends(get_db), _=Depends(current_user)):
+def create_contact(payload: ContactCreate, db: Session = Depends(get_db), _=Depends(current_user)):
     obj = Contact(**payload.model_dump())
     db.add(obj); db.commit(); db.refresh(obj)
     return obj
@@ -25,7 +25,7 @@ def get_contact(contact_id: int, db: Session = Depends(get_db), _=Depends(curren
     return obj
 
 @router.put("/{contact_id}", response_model=ContactOut)
-def update_contact(contact_id: int, payload: ContactIn, db: Session = Depends(get_db), _=Depends(current_user)):
+def update_contact(contact_id: int, payload: ContactCreate, db: Session = Depends(get_db), _=Depends(current_user)):
     obj = db.get(Contact, contact_id)
     if not obj:
         raise HTTPException(404, "Not found")

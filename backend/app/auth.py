@@ -6,7 +6,7 @@ SECRET_KEY = "dev-change-me"  # put in env var
 ALGORITHM = "HS256"
 ACCESS_TOKEN_MINUTES = 60 * 8
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
 def hash_password(pw: str) -> str:
     return pwd_context.hash(pw)
